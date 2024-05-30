@@ -159,6 +159,7 @@ local function get_points(player)
 end
 
 local function is_lumberjack(player, tree_points, sapl_points)
+    if minetest.check_player_privs(player, "is_lumberjack") then return true end
 	if not tree_points or not sapl_points then
 		return false
 	elseif tree_points > 0 or sapl_points > 0 then
@@ -452,3 +453,8 @@ if minetest.get_modpath("moretrees") and minetest.global_exists("moretrees") the
 --	lumberjack.register_tree("moretrees:jungletree_trunk", "moretrees:jungletree_sapling", 1, 5) -- crashes
 	lumberjack.register_tree("moretrees:fir_trunk", "moretrees:fir_sapling", 5, 3) -- below leaves by 5
 end
+
+minetest.register_privilege("is_lumberjack", {
+    description = S("Gives a lumberjack priv for a player"),
+    give_to_singleplayer = true
+})
